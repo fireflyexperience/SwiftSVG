@@ -42,7 +42,7 @@ import UIKit
 #elseif os(OSX)
 import AppKit
 #endif
-public extension String {
+extension String {
     
     subscript(index: Int) -> Character {
         get {
