@@ -81,6 +81,7 @@ private var tagMapping: [String: String] = [
             self.path = pathStringToParse.pathFromSVGString()
             self.shapeLayer.path = self.path.CGPath
             
+            #if os(iOS)
             if let translate = translate {
                 var translation = CGAffineTransformMakeTranslation(translate.x, translate.y)
                 if let cgpath = CGPathCreateCopyByTransformingPath(self.path.CGPath, &translation) {
@@ -88,6 +89,7 @@ private var tagMapping: [String: String] = [
                     self.shapeLayer.path = self.path.CGPath
                 }                
             }
+            #endif
         }                
     }
     
