@@ -35,6 +35,8 @@
 		39B8D8AE1B3C32DD009DAF60 /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB308781AC5BF350007DD82 /* SVGView.swift */; };
 		39B8D8AF1B3C32DD009DAF60 /* UIBezierPath+SVG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA820871AAB6AD700DEE6CA /* UIBezierPath+SVG.swift */; };
 		39B8D8B01B3C32DD009DAF60 /* UIView+SVG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E25E9031AB0D4C600E8D6CB /* UIView+SVG.swift */; };
+		796438CE1D905C980084785C /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796438CD1D905C980084785C /* String+Regex.swift */; };
+		796438CF1D905C980084785C /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796438CD1D905C980084785C /* String+Regex.swift */; };
 		8AC4DBEA1CB37EA700137DC9 /* CrossPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4DBE91CB37EA700137DC9 /* CrossPlatform.swift */; };
 		8AC4DBEB1CB37EBD00137DC9 /* CrossPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4DBE91CB37EA700137DC9 /* CrossPlatform.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,7 @@
 		39B8D88C1B3C3283009DAF60 /* SwiftSVGiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftSVGiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39B8D88F1B3C3283009DAF60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39B8D8901B3C3283009DAF60 /* SwiftSVGiOSFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftSVGiOSFramework.h; sourceTree = "<group>"; };
+		796438CD1D905C980084785C /* String+Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		8AC4DBE91CB37EA700137DC9 /* CrossPlatform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossPlatform.swift; sourceTree = "<group>"; };
 		9E245B671AAE383200472F5A /* Dictionary+KeyForValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyForValue.swift"; sourceTree = "<group>"; };
 		9E245B681AAE383200472F5A /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 				9EB308781AC5BF350007DD82 /* SVGView.swift */,
 				9EA820871AAB6AD700DEE6CA /* UIBezierPath+SVG.swift */,
 				9E25E9031AB0D4C600E8D6CB /* UIView+SVG.swift */,
+				796438CD1D905C980084785C /* String+Regex.swift */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -355,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				796438CF1D905C980084785C /* String+Regex.swift in Sources */,
 				396A8E6D1B3D238B001986AF /* Dictionary+KeyForValue.swift in Sources */,
 				396A8E6E1B3D238B001986AF /* NSObject+Extensions.swift in Sources */,
 				396A8E6F1B3D238B001986AF /* String+Subscript.swift in Sources */,
@@ -383,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				796438CE1D905C980084785C /* String+Regex.swift in Sources */,
 				39B8D8A51B3C32DD009DAF60 /* Dictionary+KeyForValue.swift in Sources */,
 				39B8D8A61B3C32DD009DAF60 /* NSObject+Extensions.swift in Sources */,
 				39B8D8A71B3C32DD009DAF60 /* String+Subscript.swift in Sources */,

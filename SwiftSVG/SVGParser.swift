@@ -43,13 +43,11 @@ private var tagMapping: [String: String] = [
     
     var path: UIBezierPath = UIBezierPath()
     var shapeLayer: CAShapeLayer = CAShapeLayer()
+    var translate: CGPoint?
     
     var d: String? {
         didSet {
-            if let pathStringToParse = d {
-                self.path = pathStringToParse.pathFromSVGString()
-                self.shapeLayer.path = self.path.CGPath
-            }
+            updateShapeLayer()
         }
     }
     
@@ -60,6 +58,39 @@ private var tagMapping: [String: String] = [
             }
         }
     }
+    
+    var transform: String? {
+        didSet {
+            guard let transform = transform where transform.containsString("translate") else { return }
+            let coordinates = transform.matchesForRegex("[0-9]")
+            if coordinates.count > 1 {
+                if let
+                    x = Double(coordinates[0]),
+                    y = Double(coordinates[1])
+                {
+                    translate = CGPoint(x: CGFloat(x), y: CGFloat(y))
+                    updateShapeLayer()
+                }
+            }
+        }
+    }
+    
+    func updateShapeLayer()
+    {
+        if let pathStringToParse = d {
+            self.path = pathStringToParse.pathFromSVGString()
+            self.shapeLayer.path = self.path.CGPath
+            
+            if let translate = translate {
+                var translation = CGAffineTransformMakeTranslation(translate.x, translate.y)
+                if let cgpath = CGPathCreateCopyByTransformingPath(self.path.CGPath, &translation) {
+                    self.path = UIBezierPath(CGPath: cgpath)
+                    self.shapeLayer.path = self.path.CGPath
+                }                
+            }
+        }                
+    }
+    
 }
 
 @objc(SVGElement) private class SVGElement: NSObject { }
