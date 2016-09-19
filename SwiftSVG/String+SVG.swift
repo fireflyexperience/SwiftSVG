@@ -405,7 +405,7 @@ private let characterDictionary: [Character: PathCharacter] = [
     "7": NumberCharacter(character: "7"),
     "8": NumberCharacter(character: "8"),
     "9": NumberCharacter(character: "9"),
-    " ": SeparatorCharacter(character: " "),
+    " ": LineTo(character: "L", pathType: PathType.Absolute),
     ",": SeparatorCharacter(character: ",")
 ]
 
