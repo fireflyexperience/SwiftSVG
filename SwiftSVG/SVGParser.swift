@@ -105,7 +105,7 @@ public class SVGParser : NSObject, NSXMLParserDelegate {
     public var shouldParseSinglePathOnly = false
     public private(set) var paths = [UIBezierPath]()
     
-    convenience init(SVGURL: NSURL, containerLayer: CALayer? = nil, shouldParseSinglePathOnly: Bool = false) {
+    public convenience init(SVGURL: NSURL, containerLayer: CALayer? = nil, shouldParseSinglePathOnly: Bool = false) {
         
         self.init()
         
