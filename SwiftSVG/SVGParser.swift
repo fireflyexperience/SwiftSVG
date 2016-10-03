@@ -39,7 +39,7 @@ private var tagMapping: [String: String] = [
 
 @objc(SVGGroup) private class SVGGroup: NSObject { }
 
-@objc(SVGPath) public class SVGPath: NSObject {
+@objc(SVGPath) open class SVGPath: NSObject {
     
     var path: UIBezierPath = UIBezierPath()
     var shapeLayer: CAShapeLayer = CAShapeLayer()
@@ -54,19 +54,19 @@ private var tagMapping: [String: String] = [
     var fill: String? {
         didSet {
             if let hexFill = fill {
-                self.shapeLayer.fillColor = UIColor(hexString: hexFill).CGColor
+                self.shapeLayer.fillColor = UIColor(hexString: hexFill).cgColor
             }
         }
     }
     
     var transform: String? {
         didSet {
-            guard let transform = transform where transform.containsString("translate") else { return }
+            guard let transform = transform , transform.containsString("translate") else { return }
             let coordinates = transform.matchesForRegex("[0-9]")
             if coordinates.count > 1 {
                 if let
                     x = Double(coordinates[0]),
-                    y = Double(coordinates[1])
+                    let y = Double(coordinates[1])
                 {
                     translate = CGPoint(x: CGFloat(x), y: CGFloat(y))
                     updateShapeLayer()
@@ -79,14 +79,14 @@ private var tagMapping: [String: String] = [
     {
         if let pathStringToParse = d {
             self.path = pathStringToParse.pathFromSVGString()
-            self.shapeLayer.path = self.path.CGPath
+            self.shapeLayer.path = self.path.cgPath
             
             #if os(iOS)
             if let translate = translate {
-                var translation = CGAffineTransformMakeTranslation(translate.x, translate.y)
-                if let cgpath = CGPathCreateCopyByTransformingPath(self.path.CGPath, &translation) {
-                    self.path = UIBezierPath(CGPath: cgpath)
-                    self.shapeLayer.path = self.path.CGPath
+                var translation = CGAffineTransform(translationX: translate.x, y: translate.y)
+                if let cgpath = self.path.cgPath.copy(using: &translation) {
+                    self.path = UIBezierPath(cgPath: cgpath)
+                    self.shapeLayer.path = self.path.cgPath
                 }                
             }
             #endif
@@ -97,15 +97,15 @@ private var tagMapping: [String: String] = [
 
 @objc(SVGElement) private class SVGElement: NSObject { }
 
-public class SVGParser : NSObject, NSXMLParserDelegate {
+open class SVGParser : NSObject, XMLParserDelegate {
     
-    private var elementStack = Stack<NSObject>()
+    fileprivate var elementStack = Stack<NSObject>()
     
-    public var containerLayer: CALayer?
-    public var shouldParseSinglePathOnly = false
-    public private(set) var paths = [UIBezierPath]()
+    open var containerLayer: CALayer?
+    open var shouldParseSinglePathOnly = false
+    open fileprivate(set) var paths = [UIBezierPath]()
     
-    public convenience init(SVGURL: NSURL, containerLayer: CALayer? = nil, shouldParseSinglePathOnly: Bool = false) {
+    public convenience init(SVGURL: URL, containerLayer: CALayer? = nil, shouldParseSinglePathOnly: Bool = false) {
         
         self.init()
         
@@ -113,7 +113,7 @@ public class SVGParser : NSObject, NSXMLParserDelegate {
             self.containerLayer = layer
         }
         
-        if let xmlParser = NSXMLParser(contentsOfURL: SVGURL) {
+        if let xmlParser = XMLParser(contentsOf: SVGURL) {
             xmlParser.delegate = self
             xmlParser.parse()
         } else {
@@ -121,7 +121,7 @@ public class SVGParser : NSObject, NSXMLParserDelegate {
         }
     }
     
-    public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+    open func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
         if let newElement = tagMapping[elementName] {
             
@@ -130,7 +130,7 @@ public class SVGParser : NSObject, NSXMLParserDelegate {
             
             let allPropertyNames = newInstance.propertyNames()
             for thisKeyName in allPropertyNames {
-                if let attributeValue: AnyObject = attributeDict[thisKeyName] {
+                if let attributeValue: AnyObject = attributeDict[thisKeyName] as AnyObject? {
                     newInstance.setValue(attributeValue, forKey: thisKeyName)
                 }
             }
@@ -152,7 +152,7 @@ public class SVGParser : NSObject, NSXMLParserDelegate {
     }
     
     
-    public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if let lastItem = self.elementStack.last {
             if let keyForValue = allKeysForValue(tagMapping,valueToMatch: lastItem.classNameAsString())?.first {
                 if elementName == keyForValue {
