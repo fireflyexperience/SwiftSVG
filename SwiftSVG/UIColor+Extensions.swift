@@ -51,22 +51,30 @@ public extension UIColor {
             workingString = String(workingString.characters.dropFirst())
         }
         
-        var hexRed = "00"
-        var hexGreen = "00"
-        var hexBlue = "00"
+        var arr: [String] = []
+        var tmp = ""
         
         if workingString.characters.count == 6 {
-            hexRed = workingString[0...1]
-            hexGreen = workingString[2...3]
-            hexBlue = workingString[4...5]
+            for (i, c) in workingString.characters.enumerated() {
+                tmp.append(c)
+                if i % 2 == 1 {
+                    arr.append(tmp)
+                    tmp = ""
+                }
+            }
+
         } else if workingString.characters.count == 3 {
-            let redValue = workingString[0]
-            let greenValue = workingString[1]
-            let blueValue = workingString[2]
-            hexRed = "\(redValue)\(redValue)"
-            hexGreen = "\(greenValue)\(greenValue)"
-            hexBlue = "\(blueValue)\(blueValue)"
+            for (i, c) in workingString.characters.enumerated() {
+                tmp.append(c)
+                tmp.append(c)
+                arr.append(tmp)
+                tmp = ""
+            }
         }
+        
+        let hexRed = arr[0] ?? "00"
+        let hexGreen = arr[1] ?? "00"
+        let hexBlue = arr[2] ?? "00"
         
         let red = CGFloat(hexRed.hexToInteger())
         let green = CGFloat(hexGreen.hexToInteger())
