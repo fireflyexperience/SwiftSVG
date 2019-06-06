@@ -44,7 +44,7 @@ private struct NumberStack {
     var characterStack: String = ""
     var asCGFloat: CGFloat? {
         get {
-            if self.characterStack.characters.count > 0 {
+            if self.characterStack.count > 0 {
                 return CGFloat(strtod(self.characterStack, nil))
             }
             return nil
@@ -52,7 +52,7 @@ private struct NumberStack {
     }
     var isEmpty: Bool {
         get {
-            if self.characterStack.characters.count > 0 {
+            if self.characterStack.count > 0 {
                 return false
             }
             return true
@@ -457,7 +457,7 @@ func parseSVGPath(_ pathString: String, forPath: UIBezierPath? = nil) -> UIBezie
             }
         }
         
-        for thisCharacter in workingString.characters {
+        for thisCharacter in workingString {
             if let pathCharacter = characterDictionary[thisCharacter] {
                 
                 if pathCharacter is PathCommand {

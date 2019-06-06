@@ -46,16 +46,16 @@ extension String {
     
     subscript(index: Int) -> Character {
         get {
-            let index = self.characters.index(self.startIndex, offsetBy: index)
+            let index = self.index(self.startIndex, offsetBy: index)
             return self[index]
         }
     }
     
     subscript(integerRange: Range<Int>) -> String {
-        let start = self.characters.index(self.startIndex, offsetBy: integerRange.lowerBound)
-        let end = self.characters.index(self.startIndex, offsetBy: integerRange.upperBound)
+        let start = self.index(self.startIndex, offsetBy: integerRange.lowerBound)
+        let end = self.index(self.startIndex, offsetBy: integerRange.upperBound)
         let range = start..<end
-        return self[range]
+        return String(self[range])
     }
 }
 

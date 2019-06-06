@@ -48,14 +48,14 @@ public extension UIColor {
         
         var workingString = hexString
         if workingString.hasPrefix("#") {
-            workingString = String(workingString.characters.dropFirst())
+            workingString = String(workingString.dropFirst())
         }
         
         var arr: [String] = []
         var tmp = ""
         
-        if workingString.characters.count == 6 {
-            for (i, c) in workingString.characters.enumerated() {
+        if workingString.count == 6 {
+            for (i, c) in workingString.enumerated() {
                 tmp.append(c)
                 if i % 2 == 1 {
                     arr.append(tmp)
@@ -63,8 +63,8 @@ public extension UIColor {
                 }
             }
 
-        } else if workingString.characters.count == 3 {
-            for (i, c) in workingString.characters.enumerated() {
+        } else if workingString.count == 3 {
+            for (_, c) in workingString.enumerated() {
                 tmp.append(c)
                 tmp.append(c)
                 arr.append(tmp)
@@ -72,9 +72,9 @@ public extension UIColor {
             }
         }
         
-        let hexRed = arr[0] ?? "00"
-        let hexGreen = arr[1] ?? "00"
-        let hexBlue = arr[2] ?? "00"
+        let hexRed = arr[0]
+        let hexGreen = arr[1]
+        let hexBlue = arr[2]
         
         let red = CGFloat(hexRed.hexToInteger())
         let green = CGFloat(hexGreen.hexToInteger())
